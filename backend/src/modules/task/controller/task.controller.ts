@@ -3,6 +3,7 @@ import { sendResponse } from "../../../common/helpers/response";
 import { TaskMapper } from "../mapper/task.mapper";
 import { TaskService } from "../service/task.service";
 import type { TaskFilterDto } from "../dto/task.dto";
+import { buildMeta } from "../../../common/query/query-builder";
 
 export class TaskController {
   constructor(private readonly service = new TaskService()) {}
@@ -19,8 +20,14 @@ export class TaskController {
   findAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const filters = (res.locals.validatedQuery ?? req.query) as TaskFilterDto;
-      const tasks = await this.service.findAll(filters);
-      return sendResponse(res, 200, "Tasks retrieved", TaskMapper.toResponseList(tasks));
+      const result = await this.service.findAll(filters);
+      return sendResponse(
+        res,
+        200,
+        "Tasks retrieved",
+        TaskMapper.toResponseList(result.data),
+        buildMeta(filters, result.total),
+      );
     } catch (error) {
       return next(error);
     }

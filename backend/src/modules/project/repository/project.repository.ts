@@ -1,5 +1,6 @@
 import { prisma } from "../../../config/prisma";
-import { CreateProjectDto, UpdateProjectDto } from "../dto/project.dto";
+import { buildPagination, buildSearch, buildSorting } from "../../../common/query/query-builder";
+import { CreateProjectDto, ProjectQueryDto, UpdateProjectDto } from "../dto/project.dto";
 
 export class ProjectRepository {
   async create(data: CreateProjectDto) {
@@ -8,12 +9,17 @@ export class ProjectRepository {
     });
   }
 
-  async findAll() {
-    return prisma.project.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+  async findAll(query: ProjectQueryDto) {
+    const where = buildSearch(query.search, ["name", "description"]);
+    const [data, total] = await prisma.$transaction([
+      prisma.project.findMany({
+        where,
+        ...buildPagination(query),
+        orderBy: buildSorting(query.sort, query.order),
+      }),
+      prisma.project.count({ where }),
+    ]);
+    return { data, total };
   }
 
   async findById(id: string) {

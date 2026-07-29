@@ -24,7 +24,7 @@ export class TaskService {
     return task;
   }
 
-  async findAll(filters: TaskFilterDto = {}) {
+  async findAll(filters: TaskFilterDto) {
     return this.repository.findAll(filters);
   }
 

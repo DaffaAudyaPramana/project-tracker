@@ -1,27 +1,24 @@
-import assert from "node:assert/strict";
-import test from "node:test";
+import { expect, test } from "vitest";
 import { GraphService } from "../src/modules/task/services/graph.service";
 
 const graph = new GraphService();
 
 test("GraphService detects a directed dependency cycle with DFS", () => {
-  assert.equal(
+  expect(
     graph.hasCycle([
       { from: "A", to: "B" },
       { from: "B", to: "C" },
       { from: "C", to: "A" },
     ]),
-    true,
-  );
+  ).toBe(true);
 });
 
 test("GraphService accepts an acyclic dependency graph", () => {
-  assert.equal(
+  expect(
     graph.hasCycle([
       { from: "A", to: "B" },
       { from: "B", to: "C" },
       { from: "D", to: "C" },
     ]),
-    false,
-  );
+  ).toBe(false);
 });

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { validate, validateQuery } from "../../../common/middleware/validate.middleware";
 import { ProjectController } from "../controller/project.controller";
-import { createProjectSchema, updateProjectSchema } from "../dto/project.dto";
+import { createProjectSchema, projectQuerySchema, updateProjectSchema } from "../dto/project.dto";
 import { TaskController } from "../../task/controller/task.controller";
 import { taskFilterSchema } from "../../task/dto/task.dto";
 import { ProjectDependencyController } from "../controller/project-dependency.controller";
@@ -16,7 +16,7 @@ const taskController = new TaskController();
 const dependencyController = new ProjectDependencyController();
 
 projectRouter.post("/", validate(createProjectSchema), controller.create);
-projectRouter.get("/", controller.findAll);
+projectRouter.get("/", validateQuery(projectQuerySchema), controller.findAll);
 projectRouter.get(
   "/:projectId/tasks",
   validateQuery(taskFilterSchema.omit({ projectId: true })),

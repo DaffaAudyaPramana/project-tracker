@@ -1,5 +1,4 @@
-import assert from "node:assert/strict";
-import test from "node:test";
+import { expect, test } from "vitest";
 import type { TaskResponse } from "../src/modules/task/types/task.types";
 import { buildTaskTree, filterTaskTree } from "../src/modules/task/utils/task-tree";
 
@@ -23,9 +22,9 @@ test("buildTaskTree nests descendants under their parent", () => {
     task("b", null, "Task B"),
   ]);
 
-  assert.equal(tree.length, 2);
-  assert.equal(tree[0].children[0].id, "a1");
-  assert.equal(tree[0].children[0].children[0].id, "a11");
+  expect(tree).toHaveLength(2);
+  expect(tree[0].children[0].id).toBe("a1");
+  expect(tree[0].children[0].children[0].id).toBe("a11");
 });
 
 test("filterTaskTree preserves ancestors of a matching task", () => {
@@ -37,8 +36,8 @@ test("filterTaskTree preserves ancestors of a matching task", () => {
   ]);
   const filtered = filterTaskTree(tree, (node) => node.title === "Task A12");
 
-  assert.equal(filtered.length, 1);
-  assert.equal(filtered[0].id, "a");
-  assert.equal(filtered[0].children[0].id, "a1");
-  assert.equal(filtered[0].children[0].children[0].id, "a12");
+  expect(filtered).toHaveLength(1);
+  expect(filtered[0].id).toBe("a");
+  expect(filtered[0].children[0].id).toBe("a1");
+  expect(filtered[0].children[0].children[0].id).toBe("a12");
 });
