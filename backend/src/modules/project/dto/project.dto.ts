@@ -3,8 +3,6 @@ import { z } from "zod";
 const projectFields = {
   name: z.string().trim().min(3, "Project name must be at least 3 characters").max(100),
   description: z.string().trim().max(500).nullable().optional(),
-  status: z.enum(["TODO", "IN_PROGRESS", "DONE"]).optional(),
-  progress: z.coerce.number().int().min(0).max(100).optional(),
   startDate: z.coerce.date(),
   endDate: z.coerce.date(),
 };
