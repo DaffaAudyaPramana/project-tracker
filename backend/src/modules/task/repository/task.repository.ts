@@ -29,6 +29,10 @@ export class TaskRepository {
     return (await prisma.task.count({ where: { parentId: id } })) > 0;
   }
 
+  async updateStatus(id: string, status: "TODO" | "IN_PROGRESS" | "DONE") {
+    return prisma.task.update({ where: { id }, data: { status } });
+  }
+
   async update(id: string, data: UpdateTaskDto) {
     return prisma.task.update({ where: { id }, data });
   }
