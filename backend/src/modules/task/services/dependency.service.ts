@@ -3,6 +3,7 @@ import { GraphService } from "./graph.service";
 import { StatusService } from "./status.service";
 import { TaskDependencyRepository } from "../repository/task-dependency.repository";
 import { TaskRepository } from "../repository/task.repository";
+import { ProgressService } from "../../progress/progress.service";
 
 export class DependencyService {
   constructor(
@@ -10,6 +11,7 @@ export class DependencyService {
     private readonly taskRepository = new TaskRepository(),
     private readonly graphService = new GraphService(),
     private readonly statusService = new StatusService(),
+    private readonly progressService = new ProgressService(),
   ) {}
 
   async create(taskId: string, dependsOnTaskId: string) {
@@ -18,6 +20,7 @@ export class DependencyService {
     if (await this.statusService.synchronizeTaskStatus(taskId)) {
       await this.statusService.reopenDoneDependents(taskId);
     }
+    await this.recalculateProject(taskId);
     return dependency;
   }
 
@@ -39,12 +42,15 @@ export class DependencyService {
     if (await this.statusService.synchronizeTaskStatus(taskId)) {
       await this.statusService.reopenDoneDependents(taskId);
     }
+    await this.recalculateProject(taskId);
     return dependency;
   }
 
   async delete(taskId: string, id: string) {
     await this.findById(taskId, id);
-    return this.repository.delete(id);
+    const deletedDependency = await this.repository.delete(id);
+    await this.recalculateProject(taskId);
+    return deletedDependency;
   }
 
   private async validateCandidate(taskId: string, dependsOnTaskId: string, excludeId?: string) {
@@ -79,5 +85,10 @@ export class DependencyService {
     const task = await this.taskRepository.findById(id);
     if (!task) throw new AppError("Task not found", 404);
     return task;
+  }
+
+  private async recalculateProject(taskId: string) {
+    const task = await this.findTaskOrThrow(taskId);
+    await this.progressService.recalculate(task.projectId);
   }
 }

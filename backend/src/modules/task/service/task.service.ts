@@ -6,18 +6,22 @@ import { TaskMapper } from "../mapper/task.mapper";
 import { TaskRepository } from "../repository/task.repository";
 import { buildTaskTree, filterTaskTree } from "../utils/task-tree";
 import { StatusService } from "../services/status.service";
+import { ProgressService } from "../../progress/progress.service";
 
 export class TaskService {
   constructor(
     private readonly repository = new TaskRepository(),
     private readonly projectRepository = new ProjectRepository(),
     private readonly statusService = new StatusService(),
+    private readonly progressService = new ProgressService(),
   ) {}
 
   async create(data: CreateTaskDto) {
     await this.ensureProjectExists(data.projectId);
     await this.validateParent(data.parentId, data.projectId);
-    return this.repository.create(data);
+    const task = await this.repository.create(data);
+    await this.progressService.recalculate(task.projectId);
+    return task;
   }
 
   async findAll(filters: TaskFilterDto = {}) {
@@ -59,12 +63,15 @@ export class TaskService {
     if (task.status === "DONE" && data.status && data.status !== "DONE") {
       await this.statusService.reopenDoneDependents(id);
     }
-    return updatedTask;
+    await this.progressService.recalculate(updatedTask.projectId);
+    return (await this.repository.findById(id)) ?? updatedTask;
   }
 
   async delete(id: string) {
-    await this.findById(id);
-    return this.repository.delete(id);
+    const task = await this.findById(id);
+    const deletedTask = await this.repository.delete(id);
+    await this.progressService.recalculate(task.projectId);
+    return deletedTask;
   }
 
   private async ensureProjectExists(projectId: string) {

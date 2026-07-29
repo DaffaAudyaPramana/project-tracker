@@ -33,6 +33,14 @@ export class ProjectRepository {
     });
   }
 
+  async updateProgressAndStatus(
+    id: string,
+    progress: number,
+    status: "TODO" | "IN_PROGRESS" | "DONE",
+  ) {
+    return prisma.project.update({ where: { id }, data: { progress, status } });
+  }
+
   async delete(id: string) {
     return prisma.project.delete({
       where: {
