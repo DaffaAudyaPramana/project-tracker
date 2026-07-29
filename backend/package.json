@@ -11,11 +11,12 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "prisma generate && tsc --noEmit",
-    "test": "tsx --test tests/project.dto.test.ts tests/task-tree.test.ts tests/graph.service.test.ts tests/progress.service.test.ts",
+    "test": "vitest run",
     "postinstall": "prisma generate",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
-    "prisma:studio": "prisma studio"
+    "prisma:studio": "prisma studio",
+    "db:seed": "tsx prisma/seed.ts"
   },
   "keywords": [
     "express",
@@ -36,6 +37,7 @@
     "morgan": "^1.11.0",
     "pg": "^8.22.0",
     "prisma": "^6.16.2",
+    "swagger-ui-express": "^5.0.1",
     "zod": "^4.4.3"
   },
   "devDependencies": {
@@ -45,11 +47,13 @@
     "@types/morgan": "^1.9.10",
     "@types/node": "^26.1.2",
     "@types/pg": "^8.20.0",
+    "@types/swagger-ui-express": "^4.1.8",
     "eslint": "^10.8.0",
     "prettier": "^3.9.6",
     "ts-node": "^10.9.2",
     "tsx": "^4.23.1",
     "typescript": "^5.9.2",
-    "typescript-eslint": "^8.65.0"
+    "typescript-eslint": "^8.65.0",
+    "vitest": "^4.1.10"
   }
 }

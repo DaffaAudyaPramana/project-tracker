@@ -1,11 +1,13 @@
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
-import morgan from "morgan";
+import swaggerUi from "swagger-ui-express";
 
 import router from "./routes";
 import { errorHandler } from "./common/middleware/error.middleware";
 import { notFoundHandler } from "./common/middleware/not-found.middleware";
+import { requestLogger } from "./common/middleware/logger.middleware";
+import { openapiSpec } from "./config/openapi";
 
 const app = express();
 
@@ -15,7 +17,9 @@ app.use(helmet());
 
 app.use(express.json());
 
-app.use(morgan("dev"));
+app.use(requestLogger);
+
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(openapiSpec));
 
 app.use("/api", router);
 

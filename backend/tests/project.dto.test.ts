@@ -1,5 +1,4 @@
-import assert from "node:assert/strict";
-import test from "node:test";
+import { expect, test } from "vitest";
 import { createProjectSchema, updateProjectSchema } from "../src/modules/project/dto/project.dto";
 
 const validProject = {
@@ -10,7 +9,7 @@ const validProject = {
 
 test("create project accepts a valid schedule", () => {
   const result = createProjectSchema.safeParse(validProject);
-  assert.equal(result.success, true);
+  expect(result.success).toBe(true);
 });
 
 test("create project rejects an end date before its start date", () => {
@@ -18,10 +17,10 @@ test("create project rejects an end date before its start date", () => {
     ...validProject,
     endDate: "2026-07-31T00:00:00.000Z",
   });
-  assert.equal(result.success, false);
+  expect(result.success).toBe(false);
 });
 
 test("update project allows either schedule date independently", () => {
   const result = updateProjectSchema.safeParse({ endDate: "2026-08-12T00:00:00.000Z" });
-  assert.equal(result.success, true);
+  expect(result.success).toBe(true);
 });

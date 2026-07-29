@@ -1,5 +1,6 @@
 import type { Prisma } from "@prisma/client";
 import { prisma } from "../../../config/prisma";
+import { buildPagination, buildSearch, buildSorting } from "../../../common/query/query-builder";
 import type { CreateTaskDto, TaskFilterDto, UpdateTaskDto } from "../dto/task.dto";
 
 export class TaskRepository {
@@ -7,14 +8,22 @@ export class TaskRepository {
     return prisma.task.create({ data });
   }
 
-  async findAll(filters: TaskFilterDto = {}) {
+  async findAll(filters: TaskFilterDto) {
     const where: Prisma.TaskWhereInput = {
       ...(filters.projectId ? { projectId: filters.projectId } : {}),
       ...(filters.status ? { status: filters.status } : {}),
-      ...(filters.search ? { title: { contains: filters.search, mode: "insensitive" } } : {}),
+      ...(buildSearch(filters.search, ["title"]) as Prisma.TaskWhereInput),
     };
 
-    return prisma.task.findMany({ where, orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }] });
+    const [data, total] = await prisma.$transaction([
+      prisma.task.findMany({
+        where,
+        ...buildPagination(filters),
+        orderBy: [buildSorting(filters.sort, filters.order), { createdAt: "asc" }],
+      }),
+      prisma.task.count({ where }),
+    ]);
+    return { data, total };
   }
 
   async findById(id: string) {
@@ -22,7 +31,10 @@ export class TaskRepository {
   }
 
   async findByProject(projectId: string) {
-    return this.findAll({ projectId });
+    return prisma.task.findMany({
+      where: { projectId },
+      orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
+    });
   }
 
   async hasChildren(id: string) {

@@ -2,6 +2,8 @@ import type { NextFunction, Request, Response } from "express";
 import { sendResponse } from "../../../common/helpers/response";
 import { ProjectMapper } from "../mapper/project.mapper";
 import { ProjectService } from "../service/project.service";
+import type { ProjectQueryDto } from "../dto/project.dto";
+import { buildMeta } from "../../../common/query/query-builder";
 
 export class ProjectController {
   constructor(private readonly service = new ProjectService()) {}
@@ -15,10 +17,17 @@ export class ProjectController {
     }
   };
 
-  findAll = async (_req: Request, res: Response, next: NextFunction) => {
+  findAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const projects = await this.service.findAll();
-      return sendResponse(res, 200, "Projects retrieved", ProjectMapper.toResponseList(projects));
+      const query = (res.locals.validatedQuery ?? req.query) as ProjectQueryDto;
+      const result = await this.service.findAll(query);
+      return sendResponse(
+        res,
+        200,
+        "Projects retrieved",
+        ProjectMapper.toResponseList(result.data),
+        buildMeta(query, result.total),
+      );
     } catch (error) {
       return next(error);
     }

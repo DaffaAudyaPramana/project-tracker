@@ -1,6 +1,6 @@
 import { ProjectRepository } from "../repository/project.repository";
 import { AppError } from "../../../common/errors/AppError";
-import { CreateProjectDto, UpdateProjectDto } from "../dto/project.dto";
+import { CreateProjectDto, ProjectQueryDto, UpdateProjectDto } from "../dto/project.dto";
 
 export class ProjectService {
   constructor(private readonly repository = new ProjectRepository()) {}
@@ -15,8 +15,8 @@ export class ProjectService {
     return this.repository.create(data);
   }
 
-  async findAll() {
-    return this.repository.findAll();
+  async findAll(query: ProjectQueryDto) {
+    return this.repository.findAll(query);
   }
 
   async findById(id: string) {
