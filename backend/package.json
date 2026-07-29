@@ -11,7 +11,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "prisma generate && tsc --noEmit",
-    "test": "tsx --test tests/project.dto.test.ts",
+    "test": "tsx --test tests/project.dto.test.ts tests/task-tree.test.ts",
     "postinstall": "prisma generate",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
