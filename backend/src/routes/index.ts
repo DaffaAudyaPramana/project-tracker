@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { projectRouter } from "../modules/project";
+import { taskRouter } from "../modules/task";
 
 const router = Router();
 
@@ -11,5 +12,6 @@ router.get("/", (_, res) => {
 });
 
 router.use("/projects", projectRouter);
+router.use("/tasks", taskRouter);
 
 export default router;
