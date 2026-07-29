@@ -5,11 +5,13 @@ import type { CreateTaskDto, TaskFilterDto, UpdateTaskDto } from "../dto/task.dt
 import { TaskMapper } from "../mapper/task.mapper";
 import { TaskRepository } from "../repository/task.repository";
 import { buildTaskTree, filterTaskTree } from "../utils/task-tree";
+import { StatusService } from "../services/status.service";
 
 export class TaskService {
   constructor(
     private readonly repository = new TaskRepository(),
     private readonly projectRepository = new ProjectRepository(),
+    private readonly statusService = new StatusService(),
   ) {}
 
   async create(data: CreateTaskDto) {
@@ -51,15 +53,13 @@ export class TaskService {
       await this.validateParent(data.parentId, task.projectId, task.id);
     }
 
-    if (
-      data.status === "DONE" &&
-      task.status !== "DONE" &&
-      (await this.repository.hasChildren(id))
-    ) {
-      throw new AppError("A task with child tasks cannot be marked as DONE", 400);
-    }
+    if (data.status === "DONE" && task.status !== "DONE") await this.statusService.ensureCanMarkDone(id);
 
-    return this.repository.update(id, data);
+    const updatedTask = await this.repository.update(id, data);
+    if (task.status === "DONE" && data.status && data.status !== "DONE") {
+      await this.statusService.reopenDoneDependents(id);
+    }
+    return updatedTask;
   }
 
   async delete(id: string) {
