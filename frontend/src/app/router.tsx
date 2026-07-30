@@ -4,6 +4,7 @@ import { MainLayout } from '@/layouts/MainLayout';
 import { DashboardModule } from '@/modules/dashboard/DashboardModule';
 import { ProjectModule } from '@/modules/project/ProjectModule';
 import { ProjectDetailPage } from '@/modules/project/ProjectDetailPage';
+import { ProjectTasksPage } from '@/modules/task/pages/ProjectTasksPage';
 import { TaskModule } from '@/modules/task/TaskModule';
 
 const router = createBrowserRouter([
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: 'projects/:id',
         element: <ProjectDetailPage />,
+      },
+      {
+        path: 'projects/:projectId/tasks',
+        element: <ProjectTasksPage />,
       },
       {
         path: 'tasks',
