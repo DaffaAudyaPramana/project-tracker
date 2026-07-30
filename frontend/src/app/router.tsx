@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { MainLayout } from '@/layouts/MainLayout';
 import { DashboardModule } from '@/modules/dashboard/DashboardModule';
 import { ProjectModule } from '@/modules/project/ProjectModule';
+import { ProjectDetailPage } from '@/modules/project/ProjectDetailPage';
 import { TaskModule } from '@/modules/task/TaskModule';
 
 const router = createBrowserRouter([
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         path: 'projects',
         element: <ProjectModule />,
+      },
+      {
+        path: 'projects/:id',
+        element: <ProjectDetailPage />,
       },
       {
         path: 'tasks',
