@@ -1,0 +1,111 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ProjectStatus {
+  TODO
+  IN_PROGRESS
+  DONE
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  DONE
+}
+
+model Project {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+
+  status   ProjectStatus @default(TODO)
+  progress Int           @default(0)
+
+  startDate DateTime
+  endDate   DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tasks Task[]
+
+  dependencies ProjectDependency[] @relation("ProjectDependencies")
+
+  dependents ProjectDependency[] @relation("ProjectDependents")
+
+  @@index([status])
+  @@index([startDate, endDate])
+}
+
+model Task {
+  id String @id @default(cuid())
+
+  title       String
+  description String?
+
+  status TaskStatus @default(TODO)
+
+  sortOrder Int @default(0)
+
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  parentId String?
+
+  parent Task? @relation("TaskHierarchy", fields: [parentId], references: [id], onDelete: Cascade)
+
+  children Task[] @relation("TaskHierarchy")
+
+  dependencies TaskDependency[] @relation("TaskDependencies")
+
+  dependents TaskDependency[] @relation("TaskDependents")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([projectId])
+  @@index([parentId])
+  @@index([status])
+}
+
+model ProjectDependency {
+  id String @id @default(cuid())
+
+  projectId String
+
+  dependsOnProjectId String
+
+  project Project @relation("ProjectDependencies", fields: [projectId], references: [id], onDelete: Cascade)
+
+  dependsOn Project @relation("ProjectDependents", fields: [dependsOnProjectId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([projectId, dependsOnProjectId])
+  @@index([projectId])
+  @@index([dependsOnProjectId])
+}
+
+model TaskDependency {
+  id String @id @default(cuid())
+
+  taskId String
+
+  dependsOnTaskId String
+
+  task Task @relation("TaskDependencies", fields: [taskId], references: [id], onDelete: Cascade)
+
+  dependsOn Task @relation("TaskDependents", fields: [dependsOnTaskId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([taskId, dependsOnTaskId])
+  @@index([taskId])
+  @@index([dependsOnTaskId])
+}

@@ -1,0 +1,989 @@
+{
+  "info": {
+    "_postman_id": "98bee5eb-b5b6-4860-b7d7-0a501ab90350",
+    "name": "test-case-aptavis",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50147144"
+  },
+  "item": [
+    {
+      "name": "Project",
+      "item": [
+        {
+          "name": "Create Project",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Revamp Website\",\r\n  \"description\": \"Revamp halaman utama\",\r\n  \"startDate\": \"2026-07-01T00:00:00.000Z\",\r\n  \"endDate\": \"2026-07-10T00:00:00.000Z\",\r\n  \"status\": \"TODO\",\r\n  \"progress\": 0\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/projects",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "projects"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Project",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/projects",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "projects"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Detail Project",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/projects/cms6mmevt0000ulecji6c0cc0",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "projects",
+                "cms6mmevt0000ulecji6c0cc0"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Project",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"status\": \"IN_PROGRESS\",\r\n  \"progress\": 25,\r\n  \"endDate\": \"2026-08-12T00:00:00.000Z\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/projects/cms6l2lt40000ulhctn9otgoj",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "projects",
+                "cms6l2lt40000ulhctn9otgoj"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Project",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/projects/cms6jntv00000ulmw3brpc4r8",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "projects",
+                "cms6jntv00000ulmw3brpc4r8"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Tasks",
+      "item": [
+        {
+          "name": "Get All Tasks",
+          "item": [
+            {
+              "name": "Get All Tasks",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/api/tasks",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "api",
+                    "tasks"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get All Tasks projectId",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/api/tasks?projectId=cms6mmevt0000ulecji6c0cc0",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "api",
+                    "tasks"
+                  ],
+                  "query": [
+                    {
+                      "key": "projectId",
+                      "value": "cms6mmevt0000ulecji6c0cc0"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get All Tasks Search",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/api/tasks?search=Task A",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "api",
+                    "tasks"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "Task A"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get All Tasks Status",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/api/tasks?status=TODO",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "api",
+                    "tasks"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "TODO"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get All Tasks All Filter",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/api/tasks?projectId=cms6l2lt40000ulhctn9otgoj&search=Task A&status=TODO",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "api",
+                    "tasks"
+                  ],
+                  "query": [
+                    {
+                      "key": "projectId",
+                      "value": "cms6l2lt40000ulhctn9otgoj"
+                    },
+                    {
+                      "key": "search",
+                      "value": "Task A"
+                    },
+                    {
+                      "key": "status",
+                      "value": "TODO"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Get Task Detail",
+          "item": [
+            {
+              "name": "Get Task Detail",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/api/tasks/cms6mo61u0002ulecj4461g0g",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "api",
+                    "tasks",
+                    "cms6mo61u0002ulecj4461g0g"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Get Project Task Tree",
+          "item": [
+            {
+              "name": "Get Project Task Tree",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/api/projects/cms6l2lt40000ulhctn9otgoj/tasks",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "api",
+                    "projects",
+                    "cms6l2lt40000ulhctn9otgoj",
+                    "tasks"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Project Task Tree Search",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/api/projects/cms6l2lt40000ulhctn9otgoj/tasks?search=Task A1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "api",
+                    "projects",
+                    "cms6l2lt40000ulhctn9otgoj",
+                    "tasks"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "Task A1"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Project Task Tree Status",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/api/projects/cms6l2lt40000ulhctn9otgoj/tasks?status=IN_PROGRESS",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "api",
+                    "projects",
+                    "cms6l2lt40000ulhctn9otgoj",
+                    "tasks"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "IN_PROGRESS"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Project Task Tree All Filter",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/api/projects/cms6l2lt40000ulhctn9otgoj/tasks?search=Task A1&status=IN_PROGRESS",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "api",
+                    "projects",
+                    "cms6l2lt40000ulhctn9otgoj",
+                    "tasks"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "Task A1"
+                    },
+                    {
+                      "key": "status",
+                      "value": "IN_PROGRESS"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Task Dependency",
+          "item": [
+            {
+              "name": "Test circular dependency Task",
+              "item": [
+                {
+                  "name": "Circular C",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"dependsOnTaskId\": \"{{taskA}}\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/tasks/{{taskC}}/dependencies",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tasks",
+                        "{{taskC}}",
+                        "dependencies"
+                      ]
+                    },
+                    "description": "Task A → Task B  \nTask B → Task C\n\nHasil yang diharapkan: `409 Conflict`  \n  \n{  \n\"success\": false,  \n\"message\": \"Task dependency creates a circular dependency\"  \n}"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Status Done A by Dependency",
+                  "request": {
+                    "method": "PATCH",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"status\": \"DONE\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/tasks/{{taskA}}",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tasks",
+                        "{{taskA}}"
+                      ]
+                    },
+                    "description": "### Test status DONE berdasarkan dependency\n\nMisalnya `Task A → Task B`, sementara Task B masih `TODO`.  \nHasil yang diharapkan: `409 Conflict`\n\n{  \n\"success\": false,  \n\"message\": \"A task cannot be marked as DONE while a dependency is incomplete\"  \n}"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Status Done B by Dependency Copy",
+                  "request": {
+                    "method": "PATCH",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"dependsOnTaskId\": \"{{taskA}}\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/tasks/{{taskB}}",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "tasks",
+                        "{{taskB}}"
+                      ]
+                    },
+                    "description": "Selesaikan Task B terlebih dahulu:  \n{  \n\"status\": \"DONE\"  \n}\n\nSetelah itu Task A boleh menjadi `DONE`.\n\nJika Task B kemudian dibuka lagi:\n\n{  \n\"status\": \"IN_PROGRESS\"  \n}\n\nmaka Task A yang bergantung padanya akan otomatis kembali menjadi `IN_PROGRESS`."
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Create Task Dependencies",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"dependsOnTaskId\": \"taskB\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tasks/{{taskA}}/dependencies",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tasks",
+                    "{{taskA}}",
+                    "dependencies"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get All Task Dependencies",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tasks/{{taskA}}/dependencies",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tasks",
+                    "{{taskA}}",
+                    "dependencies"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Detail Task Dependency",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tasks/{{taskA}}/dependencies/{{taskDependencyId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tasks",
+                    "{{taskA}}",
+                    "dependencies",
+                    "{{taskDependencyId}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Task Dependency",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"dependsOnTaskId\": \"{{taskC}}\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tasks/{{taskA}}/dependencies/{{taskDependencyId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tasks",
+                    "{{taskA}}",
+                    "dependencies",
+                    "{{taskDependencyId}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Task Dependency",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tasks/{{taskA}}/dependencies/{{taskDependencyId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tasks",
+                    "{{taskA}}",
+                    "dependencies",
+                    "{{taskDependencyId}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Create Root Task",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Task B\",\r\n  \"description\": \"Membuat navbar halaman utama\",\r\n  \"projectId\": \"cms6mmevt0000ulecji6c0cc0\",\r\n  \"sortOrder\": 0\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/tasks",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "tasks"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Child Task",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Task A1\",\r\n  \"description\": \"Membuat section hero\",\r\n  \"projectId\": \"cms6mmevt0000ulecji6c0cc0\",\r\n  \"parentId\": \"cms6mo61u0002ulecj4461g0g\",\r\n  \"sortOrder\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/tasks",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "tasks"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Task",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Task A1 Updated\",\r\n  \"description\": \"Membuat section hero versi final\",\r\n  \"parentId\": \"cms6mo61u0002ulecj4461g0g\",\r\n  \"sortOrder\": 1,\r\n  \"status\": \"IN_PROGRESS\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/tasks/cms6mp7qn0004ulecxa1fzfrn",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "tasks",
+                "cms6mp7qn0004ulecxa1fzfrn"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Task",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/tasks/cms6mp7qn0004ulecxa1fzfrn",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "tasks",
+                "cms6mp7qn0004ulecxa1fzfrn"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Project Dependency",
+      "item": [
+        {
+          "name": "Create Project Dependency",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/projects/{{projectA}}/dependencies",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects",
+                "{{projectA}}",
+                "dependencies"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Project Dependency",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/projects/{{projectA}}/dependencies",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects",
+                "{{projectA}}",
+                "dependencies"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Detail Project Dependency",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/projects/{{projectA}}/dependencies/{{projectDependencyId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects",
+                "{{projectA}}",
+                "dependencies",
+                "{{projectDependencyId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Project Dependency",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"dependsOnProjectId\": \"{{projectC}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/projects/{{projectA}}/dependencies/{{projectDependencyId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects",
+                "{{projectA}}",
+                "dependencies",
+                "{{projectDependencyId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Project Dependency",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/projects/{{projectA}}/dependencies/{{projectDependencyId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects",
+                "{{projectA}}",
+                "dependencies",
+                "{{projectDependencyId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": ""
+    },
+    {
+      "key": "taskA",
+      "value": ""
+    },
+    {
+      "key": "taskB",
+      "value": ""
+    },
+    {
+      "key": "taskC",
+      "value": ""
+    },
+    {
+      "key": "projectA",
+      "value": ""
+    },
+    {
+      "key": "projectDependencyId",
+      "value": ""
+    },
+    {
+      "key": "taskDependencyId",
+      "value": ""
+    },
+    {
+      "key": "projectId",
+      "value": ""
+    }
+  ]
+}
