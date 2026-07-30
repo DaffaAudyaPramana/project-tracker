@@ -64,6 +64,9 @@ export const ProjectDetailPage: React.FC = () => {
         </Button>
 
         <div className="flex items-center gap-2">
+          <Button variant="default" onClick={() => navigate(`/projects/${project.id}/tasks`)}>
+            <CheckSquare className="mr-2 h-4 w-4" /> Manage Tasks
+          </Button>
           <Button variant="outline" onClick={() => setIsEditModalOpen(true)}>
             <Pencil className="mr-2 h-4 w-4" /> Edit Project
           </Button>
